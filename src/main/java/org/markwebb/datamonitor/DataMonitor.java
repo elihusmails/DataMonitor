@@ -20,13 +20,23 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.impl.DefaultCamelContext;
 import org.markwebb.datamonitor.config.AddMonitorFrame;
+import org.markwebb.datamonitor.net.UdpCamelRoute;
 import org.markwebb.datamonitor.sensor.AbstractSensorPanel;
 import org.markwebb.datamonitor.sensor.Sensor;
+import org.markwebb.datamonitor.sensor.SensorData;
 import org.markwebb.datamonitor.sensor.SensorRepository;
 import org.markwebb.datamonitor.sensor.displaysensors.DisplaySensors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class DataMonitor extends JDesktopPane implements ActionListener {
+public class DataMonitor extends JDesktopPane implements ActionListener, Processor {
+	
+	private static final Logger log = LoggerFactory.getLogger(DataMonitor.class);
 	private static final long serialVersionUID = -8532711716522750910L;
 
 	private static final DataMonitor monitor = new DataMonitor();
@@ -46,6 +56,10 @@ public class DataMonitor extends JDesktopPane implements ActionListener {
 	private static final String CASCADE = "Cascade";
 	private static final String TILE_FRAMES = "Tile Frames";
 
+	public static final String CAMEL_VM_ENDPOINT = "vm:datamonitor";
+	
+	private DefaultCamelContext camelContext;
+	
 	private HashMap<String, InternalSensorFrame> sensorFrames;
 	private HashMap<String, AbstractSensorPanel> sensorPanels;
 	private HashMap<String, AbstractMonitorInput> servers;
@@ -54,6 +68,16 @@ public class DataMonitor extends JDesktopPane implements ActionListener {
 	}
 
 	public void init() {
+		
+		camelContext = new DefaultCamelContext();
+		
+		try {
+			camelContext.start();
+			camelContext.addRoutes(new CamelVmDataMonitorRoute(this));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		sensorFrames = new HashMap<String, InternalSensorFrame>();
 		sensorPanels = new HashMap<String, AbstractSensorPanel>();
 
@@ -74,10 +98,12 @@ public class DataMonitor extends JDesktopPane implements ActionListener {
 		return monitor;
 	}
 
-	public void addServer(AbstractMonitorInput server) {
-		servers.put(server.getAlias(), server);
-		server.start();
+	public void addUdpListener( String host, int port ) throws Exception{
+		
+		RouteBuilder routeBuilder = new UdpCamelRoute(host, port);
+		camelContext.addRoutes(routeBuilder);
 	}
+	
 
 	public JMenuBar createMenuBar() {
 		JMenuBar menubar = new JMenuBar();
@@ -218,5 +244,27 @@ public class DataMonitor extends JDesktopPane implements ActionListener {
 				asp.setStatePaused();
 			}
 		}
+	}
+
+	@Override
+	public void process(Exchange exchange) throws Exception {
+
+		String message = exchange.getIn().getBody(String.class);
+		
+		log.debug( exchange.getIn().getBody(String.class));
+		
+		String fields[] = message.split(" ");
+
+		if( fields.length != 4 ){
+			log.error("UDPMonitorInputServer: Illegal data message [" + "]" );
+		} 			
+		
+		double d = Double.parseDouble(fields[3]);
+		long l = Long.parseLong(fields[2]);
+
+		SensorData sd = new SensorData(fields[0], fields[1], l, d);
+		
+		SensorRepository sensorRep = SensorRepository.getInstance();
+		sensorRep.updateSensor(sd);
 	}
 }

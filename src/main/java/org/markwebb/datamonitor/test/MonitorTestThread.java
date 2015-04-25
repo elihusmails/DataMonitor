@@ -55,7 +55,7 @@ public class MonitorTestThread implements Runnable
 			
 			String data = packetString + System.currentTimeMillis() + " " + d;
 			
-			System.out.println( data );
+			//System.out.println( data );
 			
 			DatagramPacket packet = new DatagramPacket( data.getBytes(), 
 					data.getBytes().length, address, port );

@@ -92,9 +92,6 @@ public class SensorRepository {
 
 	public void updateSensor(SensorData data) {
 		
-		System.out.println("Sensors: " + sensors );
-		System.out.println("Data [" + data + "]");
-		
 		AbstractSensorPanel amp = sensors.get(data.getSource());
 		if (amp != null){
 			System.out.println("Updating Abstract Sensor Panel -- " + amp.getTitle());

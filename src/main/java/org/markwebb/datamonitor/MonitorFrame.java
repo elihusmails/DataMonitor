@@ -30,16 +30,11 @@ public class MonitorFrame extends JFrame {
 	public static void main(String[] args) {
 		MonitorFrame hmf = new MonitorFrame("Test Client", true);
 
-		UDPMonitorInputServer umis = null;
 		try {
-			umis = new UDPMonitorInputServer("default", InetAddress.getByName("localhost"), 12000);
-		} catch (SocketException e) {
-			e.printStackTrace();
-		} catch (UnknownHostException e) {
+			hmf.getMonitor().addUdpListener("127.0.0.1", 12000);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		hmf.getMonitor().addServer(umis);
 
 		hmf.add(hmf.getMonitor(), BorderLayout.CENTER);
 		hmf.pack();
