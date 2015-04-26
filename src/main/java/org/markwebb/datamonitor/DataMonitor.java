@@ -34,9 +34,11 @@ import org.markwebb.datamonitor.sensor.displaysensors.DisplaySensors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DataMonitor extends JDesktopPane implements ActionListener, Processor {
-	
-	private static final Logger log = LoggerFactory.getLogger(DataMonitor.class);
+public class DataMonitor extends JDesktopPane implements ActionListener,
+		Processor {
+
+	private static final Logger log = LoggerFactory
+			.getLogger(DataMonitor.class);
 	private static final long serialVersionUID = -8532711716522750910L;
 
 	private static final DataMonitor monitor = new DataMonitor();
@@ -57,31 +59,28 @@ public class DataMonitor extends JDesktopPane implements ActionListener, Process
 	private static final String TILE_FRAMES = "Tile Frames";
 
 	public static final String CAMEL_VM_ENDPOINT = "vm:datamonitor";
-	
+
 	private DefaultCamelContext camelContext;
-	
+
 	private HashMap<String, InternalSensorFrame> sensorFrames;
 	private HashMap<String, AbstractSensorPanel> sensorPanels;
-	private HashMap<String, AbstractMonitorInput> servers;
 
 	private DataMonitor() {
 	}
 
 	public void init() {
-		
+
 		camelContext = new DefaultCamelContext();
-		
+
 		try {
 			camelContext.start();
 			camelContext.addRoutes(new CamelVmDataMonitorRoute(this));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		sensorFrames = new HashMap<String, InternalSensorFrame>();
 		sensorPanels = new HashMap<String, AbstractSensorPanel>();
-
-		servers = new HashMap<String, AbstractMonitorInput>();
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -90,7 +89,7 @@ public class DataMonitor extends JDesktopPane implements ActionListener, Process
 
 		setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
 		setDesktopManager(new ConstrainDesktopMgr());
-		
+
 		setVisible(true);
 	}
 
@@ -98,12 +97,11 @@ public class DataMonitor extends JDesktopPane implements ActionListener, Process
 		return monitor;
 	}
 
-	public void addUdpListener( String host, int port ) throws Exception{
-		
+	public void addUdpListener(String host, int port) throws Exception {
+
 		RouteBuilder routeBuilder = new UdpCamelRoute(host, port);
 		camelContext.addRoutes(routeBuilder);
 	}
-	
 
 	public JMenuBar createMenuBar() {
 		JMenuBar menubar = new JMenuBar();
@@ -190,8 +188,8 @@ public class DataMonitor extends JDesktopPane implements ActionListener, Process
 			AddMonitorFrame amp = new AddMonitorFrame();
 			amp.setVisible(true);
 		} else if (e.getActionCommand().equals(LOADCONFIG)) {
-			JFileChooser filechooser = new JFileChooser(System
-					.getProperty("user.home"));
+			JFileChooser filechooser = new JFileChooser(
+					System.getProperty("user.dir"));
 			int retval = filechooser.showDialog(this, "Load");
 			if (retval == JFileChooser.APPROVE_OPTION) {
 				File file = filechooser.getSelectedFile();
@@ -203,8 +201,8 @@ public class DataMonitor extends JDesktopPane implements ActionListener, Process
 				}
 			}
 		} else if (e.getActionCommand().equals(SAVECONFIG)) {
-			JFileChooser filechooser = new JFileChooser(System
-					.getProperty("user.home"));
+			JFileChooser filechooser = new JFileChooser(
+					System.getProperty("user.dir"));
 			int retval = filechooser.showDialog(this, "Save");
 			if (retval == JFileChooser.APPROVE_OPTION) {
 				File file = filechooser.getSelectedFile();
@@ -215,8 +213,8 @@ public class DataMonitor extends JDesktopPane implements ActionListener, Process
 			DisplaySensors ds = new DisplaySensors();
 			ds.setVisible(true);
 		} else if (e.getActionCommand().equals(REPLAY)) {
-			JFileChooser filechooser = new JFileChooser(System
-					.getProperty("user.home"));
+			JFileChooser filechooser = new JFileChooser(
+					System.getProperty("user.home"));
 			int retval = filechooser.showDialog(this, "Select");
 			if (retval == JFileChooser.APPROVE_OPTION) {
 				File file = filechooser.getSelectedFile();
@@ -250,20 +248,20 @@ public class DataMonitor extends JDesktopPane implements ActionListener, Process
 	public void process(Exchange exchange) throws Exception {
 
 		String message = exchange.getIn().getBody(String.class);
-		
-		log.debug( exchange.getIn().getBody(String.class));
-		
+
+		log.debug(exchange.getIn().getBody(String.class));
+
 		String fields[] = message.split(" ");
 
-		if( fields.length != 4 ){
-			log.error("UDPMonitorInputServer: Illegal data message [" + "]" );
-		} 			
-		
+		if (fields.length != 4) {
+			log.error("UDPMonitorInputServer: Illegal data message [" + "]");
+		}
+
 		double d = Double.parseDouble(fields[3]);
 		long l = Long.parseLong(fields[2]);
 
 		SensorData sd = new SensorData(fields[0], fields[1], l, d);
-		
+
 		SensorRepository sensorRep = SensorRepository.getInstance();
 		sensorRep.updateSensor(sd);
 	}

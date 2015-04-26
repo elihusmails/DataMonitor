@@ -49,11 +49,9 @@ public class SensorData {
 	public void setTime(long time) {
 		this.time = time;
 	}
-	
-	public String toString(){
-		return getSource() + " " +
-			getMetadata() + " " +
-			getTime() + " " +
-			getData();
+
+	public String toString() {
+		return getSource() + " " + getMetadata() + " " + getTime() + " "
+				+ getData();
 	}
 }

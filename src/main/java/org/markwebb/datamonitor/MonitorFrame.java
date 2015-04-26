@@ -1,12 +1,14 @@
 package org.markwebb.datamonitor;
 
 import java.awt.BorderLayout;
-import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 
 import javax.swing.JFrame;
 
+/**
+ * This is the main class for the Application
+ * 
+ * @author mark
+ */
 public class MonitorFrame extends JFrame {
 
 	private static final long serialVersionUID = 7007678678467152343L;

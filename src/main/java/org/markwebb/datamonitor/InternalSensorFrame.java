@@ -4,6 +4,12 @@ import java.awt.Dimension;
 
 import javax.swing.JInternalFrame;
 
+/**
+ * This is the base class for the Monitor GUI windows in the main Desktop Pane
+ * 
+ * @author mark
+ *
+ */
 public class InternalSensorFrame extends JInternalFrame {
 	private static final long serialVersionUID = -2323748661938193041L;
 

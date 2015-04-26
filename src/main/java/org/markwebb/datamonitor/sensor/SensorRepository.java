@@ -11,8 +11,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 //TODO: make this class thread-safe
 public class SensorRepository {
+	
+	private static final Logger log = LoggerFactory.getLogger(SensorRepository.class);
+	
 	private static final SensorRepository repository = new SensorRepository();
 
 	private HashMap<String, AbstractSensorPanel> sensors;
@@ -42,8 +48,8 @@ public class SensorRepository {
 			sensors.put(sensor.getSource(), panel);
 			return panel;
 		} else {
-			ProgressSensorPanel panel = new ProgressSensorPanel(sensor
-					.getTitle());
+			ProgressSensorPanel panel = new ProgressSensorPanel(
+					sensor.getTitle());
 			sensors.put(sensor.getSource(), panel);
 			return panel;
 		}
@@ -91,12 +97,13 @@ public class SensorRepository {
 	}
 
 	public void updateSensor(SensorData data) {
-		
+
 		AbstractSensorPanel amp = sensors.get(data.getSource());
-		if (amp != null){
-			System.out.println("Updating Abstract Sensor Panel -- " + amp.getTitle());
+		if (amp != null) {
+			log.debug("Updating Abstract Sensor Panel -- "
+					+ amp.getTitle());
 			amp.receiveUpdate(data);
-		}else {
+		} else {
 			System.err.println("Unknown source --> " + data.getSource());
 		}
 	}

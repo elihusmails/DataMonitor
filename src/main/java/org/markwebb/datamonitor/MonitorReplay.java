@@ -10,6 +10,12 @@ import java.io.InputStreamReader;
 import org.markwebb.datamonitor.sensor.SensorData;
 import org.markwebb.datamonitor.sensor.SensorRepository;
 
+/**
+ * Reads in a data file and pushes the data to the monitor(s)
+ * 
+ * @author mark
+ *
+ */
 public class MonitorReplay implements Runnable {
 	private File file;
 
