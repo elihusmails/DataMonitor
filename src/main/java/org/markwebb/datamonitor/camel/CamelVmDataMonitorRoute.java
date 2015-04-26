@@ -1,7 +1,8 @@
-package org.markwebb.datamonitor;
+package org.markwebb.datamonitor.camel;
 
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.markwebb.datamonitor.DataMonitor;
 
 /**
  * This class wire's up the Apache Camel VM endpoint to the DataMonitor class,

@@ -1,4 +1,4 @@
-package org.markwebb.datamonitor.sensor;
+package org.markwebb.datamonitor.gui;
 
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
@@ -24,6 +24,7 @@ import org.jfree.data.time.Millisecond;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.ui.RectangleInsets;
+import org.markwebb.datamonitor.sensor.SensorData;
 
 public class ChartSensorPanel extends AbstractSensorPanel {
 	private static final long serialVersionUID = 6664958760800013868L;

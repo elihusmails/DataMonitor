@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import org.markwebb.datamonitor.gui.AbstractSensorPanel;
+import org.markwebb.datamonitor.gui.ChartSensorPanel;
+import org.markwebb.datamonitor.gui.ProgressSensorPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,4 +1,4 @@
-package org.markwebb.datamonitor.sensor.displaysensors;
+package org.markwebb.datamonitor.gui.displaysensor;
 
 import java.util.ArrayList;
 

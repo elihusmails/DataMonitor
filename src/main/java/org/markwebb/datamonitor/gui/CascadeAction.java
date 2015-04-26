@@ -1,4 +1,4 @@
-package org.markwebb.datamonitor;
+package org.markwebb.datamonitor.gui;
 
 import java.awt.event.ActionEvent;
 

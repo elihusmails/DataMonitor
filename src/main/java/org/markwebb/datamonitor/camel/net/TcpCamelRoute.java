@@ -1,4 +1,4 @@
-package org.markwebb.datamonitor.net;
+package org.markwebb.datamonitor.camel.net;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.JndiRegistry;
@@ -8,7 +8,7 @@ import org.jboss.netty.handler.codec.string.StringEncoder;
 import org.markwebb.datamonitor.DataMonitor;
 
 /**
- * This class is responsible for receiving events over a UDP network connection
+ * This class is responsible for receiving events over a TCP network connection
  * and sending the data to a Camel VM endpoint. The DataMonitor class will be
  * listening on the VM endpoint and passing events to the DataMonitor class
  * which is acting as a Camel Processor, where the data will be passed to the
@@ -17,12 +17,12 @@ import org.markwebb.datamonitor.DataMonitor;
  * @author mark
  *
  */
-public class UdpCamelRoute extends RouteBuilder {
+public class TcpCamelRoute extends RouteBuilder {
 
 	private String host;
 	private int port;
 
-	public UdpCamelRoute(String host, int port) {
+	public TcpCamelRoute(String host, int port) {
 		this.host = host;
 		this.port = port;
 	}
@@ -38,11 +38,11 @@ public class UdpCamelRoute extends RouteBuilder {
 		registry.bind("decoder", new StringDecoder());
 
 		from(
-				"netty:udp://"
+				"netty:tcp:"
 						+ host
 						+ ":"
 						+ port
 						+ "?sync=false&decoder=#decoder&allowDefaultCodec=false")
-				.to("log:UDP_IN").to(DataMonitor.CAMEL_VM_ENDPOINT);
+				.to(DataMonitor.CAMEL_VM_ENDPOINT);
 	}
 }

@@ -1,4 +1,4 @@
-package org.markwebb.datamonitor.sensor.displaysensors;
+package org.markwebb.datamonitor.gui.displaysensor;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -14,7 +14,7 @@ import javax.swing.JTable;
 import javax.swing.WindowConstants;
 
 import org.markwebb.datamonitor.DataMonitor;
-import org.markwebb.datamonitor.config.AddMonitorFrame;
+import org.markwebb.datamonitor.gui.addsensor.AddSensorFrame;
 import org.markwebb.datamonitor.sensor.Sensor;
 import org.markwebb.datamonitor.sensor.SensorRepository;
 
@@ -76,7 +76,7 @@ public class DisplaySensors extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals(ADD)) {
-			AddMonitorFrame amd = new AddMonitorFrame();
+			AddSensorFrame amd = new AddSensorFrame();
 			amd.setVisible(true);
 
 			reloadData();

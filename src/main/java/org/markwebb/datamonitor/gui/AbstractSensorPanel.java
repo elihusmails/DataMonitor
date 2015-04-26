@@ -1,10 +1,12 @@
-package org.markwebb.datamonitor.sensor;
+package org.markwebb.datamonitor.gui;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
+
+import org.markwebb.datamonitor.sensor.SensorData;
 
 public abstract class AbstractSensorPanel extends JPanel implements
 		ActionListener {

@@ -1,4 +1,4 @@
-package org.markwebb.datamonitor.sensor;
+package org.markwebb.datamonitor.gui;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;

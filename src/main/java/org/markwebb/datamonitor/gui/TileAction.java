@@ -1,4 +1,4 @@
-package org.markwebb.datamonitor;
+package org.markwebb.datamonitor.gui;
 
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -7,7 +7,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
-class TileAction extends AbstractAction {
+public class TileAction extends AbstractAction {
 
 	private static final long serialVersionUID = 1L;
 

@@ -1,4 +1,4 @@
-package org.markwebb.datamonitor.config;
+package org.markwebb.datamonitor.gui.addsensor;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ import javax.swing.table.AbstractTableModel;
  * @author mark
  *
  */
-public class AddInputTableModel extends AbstractTableModel {
+public class MetadataTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 6759268773299643739L;
 
 	private static final int METADATA = 0;
@@ -20,7 +20,7 @@ public class AddInputTableModel extends AbstractTableModel {
 
 	private ArrayList<String> data;
 
-	public AddInputTableModel() {
+	public MetadataTableModel() {
 		data = new ArrayList<String>();
 	}
 

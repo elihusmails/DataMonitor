@@ -9,13 +9,13 @@ import javax.swing.JFrame;
  * 
  * @author mark
  */
-public class MonitorFrame extends JFrame {
+public class Main extends JFrame {
 
 	private static final long serialVersionUID = 7007678678467152343L;
 
 	private DataMonitor monitor;
 
-	public MonitorFrame(String title, boolean visible) {
+	public Main(String title, boolean visible) {
 		super(title);
 
 		monitor = DataMonitor.getInstance();
@@ -30,7 +30,7 @@ public class MonitorFrame extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		MonitorFrame hmf = new MonitorFrame("Test Client", true);
+		Main hmf = new Main("Test Client", true);
 
 		try {
 			hmf.getMonitor().addUdpListener("127.0.0.1", 12000);

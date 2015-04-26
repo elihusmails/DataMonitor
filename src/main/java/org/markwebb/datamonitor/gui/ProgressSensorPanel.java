@@ -1,9 +1,11 @@
-package org.markwebb.datamonitor.sensor;
+package org.markwebb.datamonitor.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
+
+import org.markwebb.datamonitor.sensor.SensorData;
 
 public class ProgressSensorPanel extends AbstractSensorPanel {
 	private static final long serialVersionUID = -3971795602977585145L;

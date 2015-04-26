@@ -1,4 +1,4 @@
-package org.markwebb.datamonitor;
+package org.markwebb.datamonitor.gui;
 
 import java.awt.Dimension;
 
@@ -7,7 +7,7 @@ import javax.swing.JComponent;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
-class ConstrainDesktopMgr extends DefaultDesktopManager {
+public class ConstrainDesktopMgr extends DefaultDesktopManager {
 
 	private static final long serialVersionUID = 6812339316768193824L;
 

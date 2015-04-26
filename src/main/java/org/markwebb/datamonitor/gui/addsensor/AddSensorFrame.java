@@ -1,4 +1,4 @@
-package org.markwebb.datamonitor.config;
+package org.markwebb.datamonitor.gui.addsensor;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,11 +17,11 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import org.markwebb.datamonitor.DataMonitor;
-import org.markwebb.datamonitor.sensor.AbstractSensorPanel;
+import org.markwebb.datamonitor.gui.AbstractSensorPanel;
 import org.markwebb.datamonitor.sensor.Sensor;
 import org.markwebb.datamonitor.sensor.SensorRepository;
 
-public class AddMonitorFrame extends JFrame implements ActionListener {
+public class AddSensorFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = -4612743347701949973L;
 	private static final String ADDMETADATA = "Add Metadata";
 	private static final String ADDMONITOR = "Add Sensor";
@@ -29,9 +29,9 @@ public class AddMonitorFrame extends JFrame implements ActionListener {
 
 	private JTextField title, source, metadata;
 	private JRadioButton progressbar, chart;
-	private AddInputPanel inputPanel;
+	private MetadataTable inputPanel;
 
-	public AddMonitorFrame() {
+	public AddSensorFrame() {
 		super("Add New Sensor");
 		init();
 	}
@@ -83,7 +83,7 @@ public class AddMonitorFrame extends JFrame implements ActionListener {
 		c.gridx = 0;
 		c.gridy = 3;
 		c.gridwidth = 4;
-		inputPanel = new AddInputPanel();
+		inputPanel = new MetadataTable();
 		add(inputPanel, c);
 
 		c.gridx = 0;
@@ -128,7 +128,7 @@ public class AddMonitorFrame extends JFrame implements ActionListener {
 
 			Sensor monitor = new Sensor(title.getText(), source.getText(),
 					sRep.getNextId(), type);
-			ArrayList<String> metadata = inputPanel.getInputs();
+			ArrayList<String> metadata = inputPanel.getMetaData();
 			for (int i = 0; i < metadata.size(); i++)
 				monitor.addMetaData(metadata.get(i));
 

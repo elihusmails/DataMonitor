@@ -24,13 +24,18 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.markwebb.datamonitor.config.AddMonitorFrame;
-import org.markwebb.datamonitor.net.UdpCamelRoute;
-import org.markwebb.datamonitor.sensor.AbstractSensorPanel;
+import org.markwebb.datamonitor.camel.CamelVmDataMonitorRoute;
+import org.markwebb.datamonitor.camel.net.UdpCamelRoute;
+import org.markwebb.datamonitor.gui.AbstractSensorPanel;
+import org.markwebb.datamonitor.gui.CascadeAction;
+import org.markwebb.datamonitor.gui.ConstrainDesktopMgr;
+import org.markwebb.datamonitor.gui.InternalSensorFrame;
+import org.markwebb.datamonitor.gui.TileAction;
+import org.markwebb.datamonitor.gui.addsensor.AddSensorFrame;
+import org.markwebb.datamonitor.gui.displaysensor.DisplaySensors;
 import org.markwebb.datamonitor.sensor.Sensor;
 import org.markwebb.datamonitor.sensor.SensorData;
 import org.markwebb.datamonitor.sensor.SensorRepository;
-import org.markwebb.datamonitor.sensor.displaysensors.DisplaySensors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -185,7 +190,7 @@ public class DataMonitor extends JDesktopPane implements ActionListener,
 		if (e.getActionCommand().equals(CLOSE))
 			System.exit(0);
 		else if (e.getActionCommand().equals(ADDSENSOR)) {
-			AddMonitorFrame amp = new AddMonitorFrame();
+			AddSensorFrame amp = new AddSensorFrame();
 			amp.setVisible(true);
 		} else if (e.getActionCommand().equals(LOADCONFIG)) {
 			JFileChooser filechooser = new JFileChooser(
