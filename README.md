@@ -19,4 +19,6 @@ Tasks:
 
 6. Configuration should not be a serialized object.  Change to JSON/XML.
 
+7. Change the protocol to Google protobuf so that its more standard and it opens up the opportunity for more applications, written in other languages, to interact with this tool.
+
 
