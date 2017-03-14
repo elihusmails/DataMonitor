@@ -22,3 +22,24 @@ Tasks:
 7. Change the protocol to Google protobuf so that its more standard and it opens up the opportunity for more applications, written in other languages, to interact with this tool.
 
 
+User Guide 
+
+1. The DataMonitor UI starts up a UDP listener on 127.0.0.1 port 12000.  You can send messages to this host/port in the following format:
+
+		<source> <metadata> <value> <milliseconds since epoch>
+		
+2. The sensor that is configured in the UI must have values that match the source and metadata that comes in over the host/port.  If the values don't match, the message won't show up on the display.
+
+
+== Test ==
+1. Start DataMonitor UI
+2. Select Sensors -> Add New Sensor
+3. Set title to "Monitor Test Thread"
+4. Add Source "stage1" and metadata "processed"
+5. Add Source "stage1" and metadata "received"
+6. Add Source "stage2" and metadata "saturation"
+7. Add Source "stage2" and metadata "unknown"
+8. Click "Add Sensor".  The chart will show up in the UI
+9. Start the test class org.markwebb.datamonitor.test.MonitorTester
+
+
